@@ -18,3 +18,4 @@
           tbody
             - @books.each do |book|
               = render "books/list_book", book: book
+      = link_to "Add Book", new_book_path, class: "btn btn-primary"
