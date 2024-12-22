@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   # root "home#index"
   root "books#index"
+  get 'ajax_search_books', to: 'books#ajax_search_books'
 
   resources :books, only: [:index, :show, :destroy, :new, :create]
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

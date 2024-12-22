@@ -5,11 +5,6 @@ class BooksController < ApplicationController
     else
       @books = Book.all
     end
-
-    respond_to do |format|
-      format.html # Cho tải lần đầu
-      format.js   # Cho các yêu cầu AJAX
-    end
   end
 
   def show
@@ -30,6 +25,17 @@ class BooksController < ApplicationController
     @book = Book.new(book_params)
     @book.save
     redirect_to books_path, notice: "#{@book.title} created successfully!"
+  end
+
+  def ajax_search_books
+    @books = if params[:search].present?
+               Book.where('title LIKE ? OR content LIKE ?', "%#{params[:search]}%", "%#{params[:search]}%")
+             else
+               Book.all
+             end
+    render json: {
+      partial: (render_to_string partial: 'list_book', collection: @books, as: :book, layout: false)
+    }
   end
 
   private
