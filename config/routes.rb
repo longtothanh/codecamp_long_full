@@ -4,7 +4,9 @@ Rails.application.routes.draw do
 
   get 'ajax_search_books', to: 'books#ajax_search_books'
 
-  resources :books, only: [:index, :show, :destroy, :new, :create]
+  resources :books, only: [:index, :show, :destroy, :new, :create] do 
+    resources :reviews, only: [:create]
+  end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.

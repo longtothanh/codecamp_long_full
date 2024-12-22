@@ -3,3 +3,11 @@
         .col-md-8
             h1 = @book.title
             h3 = @book.content
+            / Display reviews
+            - @reviews.each do |review|
+                p = review.content
+            / Review book area
+            = form_with model: @review, url: book_reviews_path(@book), method: :post do |form|
+                = form.label :content
+                = form.text_area :content, class: "form-control"
+                = form.submit "Create", class: "btn btn-success mt-3"
