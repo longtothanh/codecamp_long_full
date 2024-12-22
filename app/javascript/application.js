@@ -4,4 +4,5 @@ import "jquery_ujs"
 import "popper"
 import "bootstrap"
 import "channels"
+// import book.js into application.js
 import "./book.js"

@@ -1,33 +1,20 @@
-/** @format */
-function debounce(func, timeout = 500) {
-	let timer;
-	return (...args) => {
-		clearTimeout(timer);
-		timer = setTimeout(() => {
-			func.apply(this, args);
-		}, timeout);
-	};
-}
-
-const processChange = debounce((keyword) => callFetchBooks(keyword));
-function callFetchBooks(keyword) {
-	$.ajax({
-		url: "/ajax_search_books",
-		type: "GET",
-		dataType: "json",
-		data: { search: keyword },
-		success: function (res) {
-			console.log(res);
-			$(".list-book-content").html(res.partial);
-            console.log($(".list-book-content").html(res.partial))
-		},
-	});
+function fetchBooks(keyword) {
+    $.ajax({
+        url: "/ajax_search_books",
+        method: "GET",
+        data: { search: keyword },
+        success: function (data) {
+            console.log(data)
+            // Render partial (list_book) of books table
+            $(".list-book-content").html(data.partial)
+        }
+    })
 }
 
 $(function () {
-	const searchInput = $("#search-input");
-	searchInput.on("keyup", function () {
+    const searchInput = $("#search-input")
+    searchInput.on("keyup", function () {
 		const keyword = searchInput.val();
-		processChange(keyword);
+		fetchBooks(keyword);
 	});
-});
+})

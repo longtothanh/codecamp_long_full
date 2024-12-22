@@ -28,11 +28,14 @@ class BooksController < ApplicationController
   end
 
   def ajax_search_books
-    @books = if params[:search].present?
-               Book.where('title LIKE ? OR content LIKE ?', "%#{params[:search]}%", "%#{params[:search]}%")
-             else
-               Book.all
-             end
+    # Xử lý sự kiện tìm sách theo title hoặc content
+    if params[:search].present?
+      @books = Book.where("title LIKE ? OR content LIKE ?", "%#{params[:search]}%", "%#{params[:search]}%")
+    else
+      @books = Book.all
+    end
+
+    # Update lại list book với value search
     render json: {
       partial: (render_to_string partial: 'list_book', collection: @books, as: :book, layout: false)
     }
