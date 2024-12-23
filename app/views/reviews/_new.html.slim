@@ -1,0 +1,4 @@
+= form_with model: @review, url: book_reviews_path(@book), method: :post do |form|
+  = form.label :content
+  = form.text_area :content, class: "form-control"
+  = form.submit "Create", class: "btn btn-success mt-3"

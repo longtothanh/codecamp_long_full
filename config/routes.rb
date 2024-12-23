@@ -4,8 +4,8 @@ Rails.application.routes.draw do
 
   get 'ajax_search_books', to: 'books#ajax_search_books'
 
-  resources :books, only: [:index, :show, :destroy, :new, :create] do 
-    resources :reviews, only: [:create]
+  resources :books, only: [:index, :show, :destroy, :new, :create] do
+    resources :reviews, only: [:create, :new, :index]
   end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
