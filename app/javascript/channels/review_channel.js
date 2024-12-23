@@ -1,15 +1,31 @@
 import consumer from "channels/consumer"
 
-consumer.subscriptions.create("ReviewChannel", {
-  connected() {
-    // Called when the subscription is ready for use on the server
-  },
+$(function() {
+  const book_id = $("#review-book-list").data("book-id")
 
-  disconnected() {
-    // Called when the subscription has been terminated by the server
-  },
+  consumer.subscriptions.create({ channel: "ReviewChannel", book_id}, {
 
-  received(data) {
-    // Called when there's incoming data on the websocket for this channel
-  }
-});
+    // Connect to channel
+    connected() {
+      // console.log(`Connected to ReviewChannel for book`);
+    },
+
+    // Display data ActionCable
+    received(data) {
+      console.log(data)
+      $("#review-book-list").append(`<p>${data.review}</p>`);
+    }
+  });
+
+  // Xử lý form submit review
+  $("#review-form").on("submit", function(event) {
+    event.preventDefault();
+
+    const reviewContent = $(this).find("#input-review").val();
+
+    $.post($(this).attr("action"), { content: reviewContent }, function(response) {
+      $("#input-review").val("").focus();
+      $("#button-submit-review").prop("disabled", false);
+    })
+  })
+})

@@ -2,9 +2,10 @@ class ReviewsController < ApplicationController
     def create
         @book = Book.find(params[:book_id])
         @review = Review.new(book_id: params[:book_id], content: params[:content])
-        @review.save
-        binding.pry
-        redirect_to book_path(@book), notice: "Review #{@book.title} created successfully!"
+        if @review.save
+            ActionCable.server.broadcast("review_book_#{@book.id}", { review: @review.content })
+        end
+
     end
 
     def new
