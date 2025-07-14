@@ -315,6 +315,7 @@ GEM
 PLATFORMS
   aarch64-linux
   arm64-darwin-21
+  arm64-darwin-24
   x86_64-linux
 
 DEPENDENCIES
@@ -342,4 +343,4 @@ DEPENDENCIES
   web-console
 
 BUNDLED WITH
-   2.3.27
+   2.6.7

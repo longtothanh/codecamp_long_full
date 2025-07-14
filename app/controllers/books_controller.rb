@@ -38,7 +38,7 @@ class BooksController < ApplicationController
 
     # Update lại list book với value search
     render json: {
-      partial: (render_to_string partial: 'list_book', collection: @books, as: :book, layout: false)
+      partial: (render_to_string partial: "list_book", collection: @books, as: :book, layout: false)
     }
   end
 
