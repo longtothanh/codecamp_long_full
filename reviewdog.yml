@@ -1,0 +1,9 @@
+runner:
+  rubocop:
+    name: rubocop
+    cmd: bundle exec rubocop --format=json
+    errorformat: json
+    level: warning
+    reporter: github-pr-review
+    filter_mode: file
+    fail_on_error: true
