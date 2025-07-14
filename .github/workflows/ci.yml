@@ -25,13 +25,13 @@ jobs:
       - name: Scan for common Rails security vulnerabilities using static analysis
         run: bin/brakeman --no-pager
 
-      - name: Run rubocop
-        run: bundle exec rubocop --format=json --out=rubocop.json
-
-      - name: Run reviewdog
-        uses: reviewdog/action-rubocop@v2
+      - name: Run rubocop with reviewdog
+        uses: reviewdog/action-script@v1
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          rubocop_input: rubocop.json
+          script: bundle exec rubocop --format=json
+          tool_name: rubocop
           reporter: github-pr-review
           level: warning
+          fail_on_error: true
+          filter_mode: file
+          github_token: ${{ secrets.GITHUB_TOKEN }}
